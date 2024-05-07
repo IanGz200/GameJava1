@@ -11,31 +11,34 @@ package Player;
  */
 public class Player {
 
-    //Players level
+    //Player level
     public int level;
 
-    //Players health points
-    private int health;
+    //Player maxHealth points
+    private int maxHealth;
 
-    //Players defense points
-    private int Def;
+    //Player current health
+    private int curHealth;
 
     //Experience obtained from the player
     private int exp;
 
-    //Players attack
+    //Player defense points
+    private int Def;
+
+    //Player attack
     private int Atk;
 
-    //Players magic atributes
+    //Player magic atributes
     private int Magic;
 
-    //Players dexterity
+    //Player dexterity
     private int Dex;
 
-    //Players speed
+    //Player speed
     private int Speed;
 
-    //Players class
+    //Player class
     private int type;
 
     public static final int Soldier = 0;
@@ -65,21 +68,39 @@ public class Player {
     }
 
     /**
-     * getter from health
+     * getter from maxHealth
      *
-     * @return player health
+     * @return player maxHealth
      */
-    public int getHealth() {
-        return health;
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     /**
-     * health setter
+     * maxHealth setter
      *
-     * @param health
+     * @param maxHealth
      */
-    public void setHealth(int health) {
-        this.health = health;
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    /**
+     * getter from curhealth
+     *
+     * @return the current health from the player
+     */
+    public int getCurHealth() {
+        return curHealth;
+    }
+
+    /**
+     * curhealth setter
+     *
+     * @param curHealth
+     */
+    public void setCurHealth(int curHealth) {
+        this.curHealth = curHealth;
     }
 
     /**
@@ -209,74 +230,19 @@ public class Player {
     }
 
     /**
-     * Method that defines a player stats
-     *
-     * @param type to know the class
-     * @return A new player
-     */
-    public Player DefineStats(int type) {
-
-        Player player = null;
-
-        switch (type) {
-            case Player.Soldier ->
-                player = new Player(15, 10, 13, 7, 10, 10);
-            case Player.Archer ->
-                player = new Player(10, 8, 10, 7, 13, 12);
-            case Player.Mage ->
-                player = new Player(8, 7, 8, 14, 10, 11);
-            case Player.Healer ->
-                player = new Player(12, 9, 5, 15, 10, 11);
-        }
-        return player;
-
-    }
-
-    /**
-     * It upgrades the players HP when they level up
-     * @param p
-     * @return 
-     */
-    public Player HPLvlUp(Player p) {
-
-        p.setLevel(p.getLevel() + 1);
-
-        switch (p.getType()) {
-            case Player.Soldier ->
-                p.setHealth(p.getHealth() + 8);
-            case Player.Archer ->
-                p.setHealth(p.getHealth()+ 7);
-            case Player.Mage ->
-                p.setHealth(p.getHealth()+ 5);
-            case Player.Healer ->
-                p.setHealth(p.getHealth() + 6);
-        }
-
-        return p;
-
-    }
-    
-    public Player StatLvlUp(Player p){
-    
-        
-    
-        return p;
-    
-    }
-
-    /**
      * Class constructor
      *
-     * @param health
+     * @param maxhealth
      * @param Def
      * @param Atk
      * @param Magic
      * @param Dex
      * @param Speed
      */
-    public Player(int health, int Def, int Atk, int Magic, int Dex, int Speed) {
+    public Player(int maxhealth, int Def, int Atk, int Magic, int Dex, int Speed) {
         this.level = 1;
-        this.health = health;
+        this.maxHealth = maxhealth;
+        this.curHealth = maxhealth;
         this.Def = Def;
         this.exp = 0;
         this.Atk = Atk;
