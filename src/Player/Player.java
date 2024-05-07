@@ -5,36 +5,37 @@
 package Player;
 
 /**
- * -Comenta la clase-
+ * -This class defines the atributes of the players-
  *
  * @author IanGz
  */
 public class Player {
 
-    //Nivel del jugador
+    //Players level
     public int level;
 
-    //Vida del jugador
+    //Players health points
     private int health;
 
-    //Defensa del jugador
+    //Players defense points
     private int Def;
 
-    //Experiencia adquirida por el jugador
+    //Experience obtained from the player
     private int exp;
 
-    //Ataque del jugador
+    //Players attack
     private int Atk;
 
-    //Atributo de magia
+    //Players magic atributes
     private int Magic;
 
-    //Atributo de destreza
+    //Players dexterity
     private int Dex;
 
-    //Velocidad del jugador
+    //Players speed
     private int Speed;
 
+    //Players class
     private int type;
 
     public static final int Soldier = 0;
@@ -46,16 +47,16 @@ public class Player {
     public static final int Healer = 3;
 
     /**
-     * metodo get de Level
+     * getter from level
      *
-     * @return el nivel del jugador
+     * @return the player level
      */
     public int getLevel() {
         return level;
     }
 
     /**
-     * Metodo set de Level
+     * level setter
      *
      * @param level
      */
@@ -64,16 +65,16 @@ public class Player {
     }
 
     /**
-     * Metodo get de health
+     * getter from health
      *
-     * @return
+     * @return player health
      */
     public int getHealth() {
         return health;
     }
 
     /**
-     * metodo set de health
+     * health setter
      *
      * @param health
      */
@@ -82,16 +83,16 @@ public class Player {
     }
 
     /**
-     * metodo get de Def
+     * getter from Def
      *
-     * @return
+     * @return player defense
      */
     public int getDef() {
         return Def;
     }
 
     /**
-     * metodo set de Def
+     * def setter
      *
      * @param Def
      */
@@ -100,16 +101,16 @@ public class Player {
     }
 
     /**
-     * metodo get de Exp
+     * getter from exp
      *
-     * @return
+     * @return the experience obtained from the player
      */
     public int getExp() {
         return exp;
     }
 
     /**
-     * metodo set de Exp
+     * exp setter
      *
      * @param exp
      */
@@ -118,16 +119,16 @@ public class Player {
     }
 
     /**
-     * metodo get de Atk
+     * getter from atk
      *
-     * @return
+     * @return the player attack
      */
     public int getAtk() {
         return Atk;
     }
 
     /**
-     * metodo set de Atk
+     * atk setter
      *
      * @param Atk
      */
@@ -136,16 +137,16 @@ public class Player {
     }
 
     /**
-     * Metodo get de magia
+     * getter from Magic
      *
-     * @return
+     * @return the player magic capabilities
      */
     public int getMagic() {
         return Magic;
     }
 
     /**
-     * metodo set de magia
+     * magic setter
      *
      * @param Magic
      */
@@ -154,16 +155,16 @@ public class Player {
     }
 
     /**
-     * metodo get de Dex
+     * getter from dex
      *
-     * @return
+     * @return the player dexterity
      */
     public int getDex() {
         return Dex;
     }
 
     /**
-     * Metodo set de Dex
+     * dex setter
      *
      * @param Dex
      */
@@ -172,16 +173,16 @@ public class Player {
     }
 
     /**
-     * metodo get de Speed
+     * getter from speed
      *
-     * @return
+     * @return player speed stat
      */
     public int getSpeed() {
         return Speed;
     }
 
     /**
-     * metodo set de speed
+     * speed setter
      *
      * @param Speed
      */
@@ -190,16 +191,16 @@ public class Player {
     }
 
     /**
-     * metodo get de type
+     * getter from type
      *
-     * @return
+     * @return the player class
      */
     public int getType() {
         return type;
     }
 
     /**
-     * metodo set de type
+     * type setter
      *
      * @param type
      */
@@ -208,10 +209,10 @@ public class Player {
     }
 
     /**
-     * Metodo que define las estadisticas del personaje
+     * Method that defines a player stats
      *
-     * @param type
-     * @return El jugador
+     * @param type to know the class
+     * @return A new player
      */
     public Player DefineStats(int type) {
 
@@ -232,7 +233,39 @@ public class Player {
     }
 
     /**
-     * Constructor de clase
+     * It upgrades the players HP when they level up
+     * @param p
+     * @return 
+     */
+    public Player HPLvlUp(Player p) {
+
+        p.setLevel(p.getLevel() + 1);
+
+        switch (p.getType()) {
+            case Player.Soldier ->
+                p.setHealth(p.getHealth() + 8);
+            case Player.Archer ->
+                p.setHealth(p.getHealth()+ 7);
+            case Player.Mage ->
+                p.setHealth(p.getHealth()+ 5);
+            case Player.Healer ->
+                p.setHealth(p.getHealth() + 6);
+        }
+
+        return p;
+
+    }
+    
+    public Player StatLvlUp(Player p){
+    
+        
+    
+        return p;
+    
+    }
+
+    /**
+     * Class constructor
      *
      * @param health
      * @param Def
