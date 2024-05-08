@@ -41,13 +41,13 @@ public class Player {
     //Player class
     private int type;
 
-    public static final int Soldier = 0;
+    public static final int SOLDIER = 0;
 
-    public static final int Archer = 1;
+    public static final int ARCHER = 1;
 
-    public static final int Mage = 2;
+    public static final int MAGE = 2;
 
-    public static final int Healer = 3;
+    public static final int HEALER = 3;
 
     /**
      * getter from level
