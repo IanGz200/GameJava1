@@ -44,13 +44,13 @@ public class PlayerDB {
         Player player = null;
 
         switch (type) {
-            case Player.Soldier ->
+            case Player.SOLDIER ->
                 player = new Player(15, 10, 13, 7, 10, 10);
-            case Player.Archer ->
+            case Player.ARCHER ->
                 player = new Player(10, 8, 10, 7, 13, 12);
-            case Player.Mage ->
+            case Player.MAGE ->
                 player = new Player(8, 7, 8, 14, 10, 11);
-            case Player.Healer ->
+            case Player.HEALER ->
                 player = new Player(12, 9, 5, 15, 10, 11);
         }
         return player;
@@ -94,13 +94,13 @@ public class PlayerDB {
         p.setLevel(p.getLevel() + 1);
 
         switch (p.getType()) {
-            case Player.Soldier ->
+            case Player.SOLDIER ->
                 p.setMaxHealth(p.getMaxHealth() + 8);
-            case Player.Archer ->
+            case Player.ARCHER ->
                 p.setMaxHealth(p.getMaxHealth() + 7);
-            case Player.Mage ->
+            case Player.MAGE ->
                 p.setMaxHealth(p.getMaxHealth() + 5);
-            case Player.Healer ->
+            case Player.HEALER ->
                 p.setMaxHealth(p.getMaxHealth() + 6);
         }
 
