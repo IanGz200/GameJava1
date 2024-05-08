@@ -6,28 +6,187 @@ package Mobs;
 
 /**
  *
- * superclase que define elementos de los monstruos
- * 
+ * Superclass that defines monsters attributes
+ *
  * @author IanGz
  */
 public abstract class MStats {
 
-    //Nivel del monstruo
-    public int level;
+    //NMonster level
+    protected int level;
 
-    //Vida del monstruo
-    private int health;
+    //Monster health points
+    protected int maxhealth;
 
-    //Puntos de defensa del monstruo
-    private int DefPoints;
+    //Monster current health
+    protected int curhealth;
 
-    //Puntos de experiencia que da al matarlo
-    private int exp;
+    //Monster defense points
+    protected int DefPoints;
 
-    //Ataque del monstruo
-    private int Atk;
+    //Experience droped at death
+    protected int exp;
 
-    //Velocidad del monstruo
-    private int Speed;
+    //Monster attack
+    protected int Atk;
+
+    //Monster speed
+    protected int Speed;
+
+    /**
+     *
+     * @return
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     *
+     * @param level
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getMaxhealth() {
+        return maxhealth;
+    }
+
+    /**
+     *
+     * @param maxhealth
+     */
+    public void setMaxhealth(int maxhealth) {
+        this.maxhealth = maxhealth;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getCurhealth() {
+        return curhealth;
+    }
+
+    /**
+     *
+     * @param curhealth
+     */
+    public void setCurhealth(int curhealth) {
+        this.curhealth = curhealth;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getDefPoints() {
+        return DefPoints;
+    }
+
+    /**
+     *
+     * @param DefPoints
+     */
+    public void setDefPoints(int DefPoints) {
+        this.DefPoints = DefPoints;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getExp() {
+        return exp;
+    }
+
+    /**
+     *
+     * @param exp
+     */
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getAtk() {
+        return Atk;
+    }
+
+    /**
+     *
+     * @param Atk
+     */
+    public void setAtk(int Atk) {
+        this.Atk = Atk;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getSpeed() {
+        return Speed;
+    }
+
+    /**
+     *
+     * @param Speed
+     */
+    public void setSpeed(int Speed) {
+        this.Speed = Speed;
+    }
+    
+    
+
+    /**
+     * Uses de monster attack to deal damage to players
+     *
+     * @param defense
+     * @return damage dealt
+     */
+    public abstract int attack(int defense);
+    
+    /**
+     * Uses the damage dealt from the player to lower the current hp
+     * @param damage 
+     */
+    public abstract void lowerHp(int damage);
+    
+    /**
+     * Sometimes monsters can run away when they have low health
+     * 
+     * @return if it runs away or not
+     */
+    public abstract boolean runAway();
+    
+    /**
+     * Constructor
+     *
+     * @param level
+     * @param maxhealth
+     * @param curhealth
+     * @param DefPoints
+     * @param exp
+     * @param Atk
+     * @param Speed
+     */
+    public MStats(int level, int maxhealth, int curhealth, int DefPoints, int exp, int Atk, int Speed) {
+        this.level = level;
+        this.maxhealth = maxhealth;
+        this.curhealth = curhealth;
+        this.DefPoints = DefPoints;
+        this.exp = exp;
+        this.Atk = Atk;
+        this.Speed = Speed;
+    }
 
 }

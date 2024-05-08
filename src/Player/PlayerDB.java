@@ -36,24 +36,23 @@ public class PlayerDB {
     /**
      * Method that defines a player stats
      *
+     * @param p
      * @param type to know the class
      * @return A new player
      */
-    public Player DefineStats(int type) {
-
-        Player player = null;
+    public Player DefineStats(Player p, int type) {
 
         switch (type) {
-            case Player.Soldier ->
-                player = new Player(15, 10, 13, 7, 10, 10);
-            case Player.Archer ->
-                player = new Player(10, 8, 10, 7, 13, 12);
-            case Player.Mage ->
-                player = new Player(8, 7, 8, 14, 10, 11);
-            case Player.Healer ->
-                player = new Player(12, 9, 5, 15, 10, 11);
+            case Player.SOLDIER ->
+                p = new Player(15, 10, 13, 7, 10, 10);
+            case Player.ARCHER ->
+                p = new Player(10, 8, 10, 7, 13, 12);
+            case Player.MAGE ->
+                p = new Player(8, 7, 8, 14, 10, 11);
+            case Player.HEALER ->
+                p = new Player(12, 9, 5, 15, 10, 11);
         }
-        return player;
+        return p;
 
     }
 
@@ -94,13 +93,13 @@ public class PlayerDB {
         p.setLevel(p.getLevel() + 1);
 
         switch (p.getType()) {
-            case Player.Soldier ->
+            case Player.SOLDIER ->
                 p.setMaxHealth(p.getMaxHealth() + 8);
-            case Player.Archer ->
+            case Player.ARCHER ->
                 p.setMaxHealth(p.getMaxHealth() + 7);
-            case Player.Mage ->
+            case Player.MAGE ->
                 p.setMaxHealth(p.getMaxHealth() + 5);
-            case Player.Healer ->
+            case Player.HEALER ->
                 p.setMaxHealth(p.getMaxHealth() + 6);
         }
 
