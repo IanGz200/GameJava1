@@ -36,24 +36,23 @@ public class PlayerDB {
     /**
      * Method that defines a player stats
      *
+     * @param p
      * @param type to know the class
      * @return A new player
      */
-    public Player DefineStats(int type) {
-
-        Player player = null;
+    public Player DefineStats(Player p, int type) {
 
         switch (type) {
             case Player.SOLDIER ->
-                player = new Player(15, 10, 13, 7, 10, 10);
+                p = new Player(15, 10, 13, 7, 10, 10);
             case Player.ARCHER ->
-                player = new Player(10, 8, 10, 7, 13, 12);
+                p = new Player(10, 8, 10, 7, 13, 12);
             case Player.MAGE ->
-                player = new Player(8, 7, 8, 14, 10, 11);
+                p = new Player(8, 7, 8, 14, 10, 11);
             case Player.HEALER ->
-                player = new Player(12, 9, 5, 15, 10, 11);
+                p = new Player(12, 9, 5, 15, 10, 11);
         }
-        return player;
+        return p;
 
     }
 
