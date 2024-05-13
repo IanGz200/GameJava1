@@ -11,6 +11,9 @@ package Player;
  */
 public class Player {
 
+    //player name
+    public String name;
+
     //Player level
     public int level;
 
@@ -48,6 +51,23 @@ public class Player {
     public static final int MAGE = 2;
 
     public static final int HEALER = 3;
+
+    /**
+     * getter from name
+     * @return player name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * name setter
+     * 
+     * @param name 
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * getter from level
@@ -232,6 +252,7 @@ public class Player {
     /**
      * Class constructor
      *
+     * @param name
      * @param maxhealth
      * @param Def
      * @param Atk
@@ -239,7 +260,8 @@ public class Player {
      * @param Dex
      * @param Speed
      */
-    public Player(int maxhealth, int Def, int Atk, int Magic, int Dex, int Speed) {
+    public Player(String name, int maxhealth, int Def, int Atk, int Magic, int Dex, int Speed) {
+        this.name = name;
         this.level = 1;
         this.maxHealth = maxhealth;
         this.curHealth = maxhealth;
@@ -250,5 +272,7 @@ public class Player {
         this.Dex = Dex;
         this.Speed = Speed;
     }
+    
+    
 
 }

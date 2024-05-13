@@ -4,9 +4,13 @@
  */
 package Graphix;
 
+import Player.PlayerDB;
+import Player.Player;
+
 /**
  *
- * @author songo
+ * @author IanGz
+ * 
  */
 public class Graphix extends javax.swing.JFrame {
 
@@ -26,21 +30,112 @@ public class Graphix extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        StartGameB = new javax.swing.JButton();
+        ExitGameB = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        NameField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        ClassSelected = new javax.swing.JComboBox<>();
+        jPanel5 = new javax.swing.JPanel();
+        SaveCharB = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        CharTable = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        DeleteCharB = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        StartGameB.setText("Start Game");
+        jPanel1.add(StartGameB);
+
+        ExitGameB.setText("Exit");
+        jPanel1.add(ExitGameB);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setText("Name:");
+        jPanel4.add(jLabel1);
+        jPanel4.add(NameField);
+
+        jLabel2.setText("Class:");
+        jPanel4.add(jLabel2);
+
+        ClassSelected.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soldier", "Archer", "Mage", "Healer" }));
+        jPanel4.add(ClassSelected);
+
+        jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
+
+        SaveCharB.setText("Save");
+        SaveCharB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveCharBActionPerformed(evt);
+            }
+        });
+        jPanel5.add(SaveCharB);
+
+        jPanel2.add(jPanel5, java.awt.BorderLayout.PAGE_END);
+
+        jTabbedPane1.addTab("Create character", jPanel2);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        CharTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "Name", "Class"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(CharTable);
+
+        jPanel6.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
+
+        DeleteCharB.setText("Delete character");
+        jPanel7.add(DeleteCharB);
+
+        jPanel3.add(jPanel7, java.awt.BorderLayout.PAGE_END);
+
+        jTabbedPane1.addTab("Delete Character", jPanel3);
+
+        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        jTabbedPane1.getAccessibleContext().setAccessibleName("tab 1");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SaveCharBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveCharBActionPerformed
+        
+        PlayerDB pdb = new PlayerDB();
+        Player p = null;
+        
+        pdb.DefineStats(p, ClassSelected.getSelectedIndex(), NameField.getText());
+        
+        CharTable.getModel().setValueAt(NameField.getText(), CharTable.getRowCount(), 0);
+        CharTable.getModel().setValueAt(pdb.getPlayerClass(p), CharTable.getRowCount(), 0);
+        
+        
+    }//GEN-LAST:event_SaveCharBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -75,8 +170,28 @@ public class Graphix extends javax.swing.JFrame {
                 new Graphix().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable CharTable;
+    private javax.swing.JComboBox<String> ClassSelected;
+    private javax.swing.JButton DeleteCharB;
+    private javax.swing.JButton ExitGameB;
+    private javax.swing.JTextField NameField;
+    private javax.swing.JButton SaveCharB;
+    private javax.swing.JButton StartGameB;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
