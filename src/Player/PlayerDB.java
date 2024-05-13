@@ -7,7 +7,8 @@ package Player;
 import java.util.ArrayList;
 
 /**
- * -Comenta la clase-
+ * -Class that contains an arraylist with all the characters created during a 
+ * game-
  *
  * @author IanGz
  */
@@ -38,19 +39,20 @@ public class PlayerDB {
      *
      * @param p
      * @param type to know the class
+     * @param name
      * @return A new player
      */
-    public Player DefineStats(Player p, int type) {
+    public Player DefineStats(Player p, int type, String name) {
 
         switch (type) {
             case Player.SOLDIER ->
-                p = new Player(15, 10, 13, 7, 10, 10);
+                p = new Player(name, 15, 10, 13, 7, 10, 10);
             case Player.ARCHER ->
-                p = new Player(10, 8, 10, 7, 13, 12);
+                p = new Player(name, 10, 8, 10, 7, 13, 12);
             case Player.MAGE ->
-                p = new Player(8, 7, 8, 14, 10, 11);
+                p = new Player(name, 8, 7, 8, 14, 10, 11);
             case Player.HEALER ->
-                p = new Player(12, 9, 5, 15, 10, 11);
+                p = new Player(name, 12, 9, 5, 15, 10, 11);
         }
         return p;
 
@@ -105,6 +107,25 @@ public class PlayerDB {
 
         return p;
 
+    }
+    
+    public String getPlayerClass(Player p){
+    
+        String playerClass = null;
+    
+        switch (p.getType()) {
+            case Player.SOLDIER ->
+                playerClass = "Soldier";
+            case Player.ARCHER ->
+                playerClass = "Archer";
+            case Player.MAGE ->
+                playerClass = "Mage";
+            case Player.HEALER ->
+                playerClass = "Healer";
+        }
+        
+        return playerClass;
+    
     }
 
 }
