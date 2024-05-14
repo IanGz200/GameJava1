@@ -7,7 +7,6 @@ package Graphix;
 import Player.PlayerDB;
 import Player.Player;
 import java.awt.event.KeyEvent;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,28 +17,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Graphix extends javax.swing.JFrame {
 
+    PlayerDB pdb = new PlayerDB();
+
     /**
      * Creates new form Graphix
      */
     public Graphix() {
         initComponents();
-        prueba();
-    }
 
-    public void prueba() {
-
-        PlayerDB pdb = new PlayerDB();
-
-        int maxHealth = pdb.DefineStats(ClassSelected.getSelectedIndex())[0];
-        int def = pdb.DefineStats(ClassSelected.getSelectedIndex())[1];
-        int atk = pdb.DefineStats(ClassSelected.getSelectedIndex())[2];
-        int magic = pdb.DefineStats(ClassSelected.getSelectedIndex())[3];
-        int dex = pdb.DefineStats(ClassSelected.getSelectedIndex())[4];
-        int speed = pdb.DefineStats(ClassSelected.getSelectedIndex())[5];
-
-        Player p = new Player(NameField.getText(), maxHealth, def, atk, magic, dex, speed);
-
-        System.out.println(pdb.getPlayerClass(p) + "hola");
     }
 
     /**
@@ -71,11 +56,22 @@ public class Graphix extends javax.swing.JFrame {
         DeleteCharB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
 
         StartGameB.setText("Start Game");
+        StartGameB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StartGameBActionPerformed(evt);
+            }
+        });
         jPanel1.add(StartGameB);
 
         ExitGameB.setText("Exit");
+        ExitGameB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitGameBActionPerformed(evt);
+            }
+        });
         jPanel1.add(ExitGameB);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -141,6 +137,11 @@ public class Graphix extends javax.swing.JFrame {
         jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
         DeleteCharB.setText("Delete character");
+        DeleteCharB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteCharBActionPerformed(evt);
+            }
+        });
         jPanel7.add(DeleteCharB);
 
         jPanel3.add(jPanel7, java.awt.BorderLayout.PAGE_END);
@@ -151,48 +152,180 @@ public class Graphix extends javax.swing.JFrame {
         jTabbedPane1.getAccessibleContext().setAccessibleName("tab 1");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * this method agregates a character to the character table and database. It
+     * also defines the character stats
+     *
+     * @param evt
+     */
     private void SaveCharBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveCharBActionPerformed
 
         DefaultTableModel model = (DefaultTableModel) CharTable.getModel();
 
-        PlayerDB pdb = new PlayerDB();
+        String name = NameField.getText();
 
-        if (!"".equals(NameField.getText())) {
+        //The names must be unique
+        if (!checkCharName(name)) {
 
-            int maxHealth = pdb.DefineStats(ClassSelected.getSelectedIndex())[0];
-            int def = pdb.DefineStats(ClassSelected.getSelectedIndex())[1];
-            int atk = pdb.DefineStats(ClassSelected.getSelectedIndex())[2];
-            int magic = pdb.DefineStats(ClassSelected.getSelectedIndex())[3];
-            int dex = pdb.DefineStats(ClassSelected.getSelectedIndex())[4];
-            int speed = pdb.DefineStats(ClassSelected.getSelectedIndex())[5];
+            //It only works if theres a name writen
+            if (!"".equals(name)) {
 
-            Player p = new Player(NameField.getText(), maxHealth, def, atk, magic, dex, speed);
+                //Defines stats based on the class chose
+                int maxHealth = pdb.DefineStats(ClassSelected.getSelectedIndex())[0];
+                int def = pdb.DefineStats(ClassSelected.getSelectedIndex())[1];
+                int atk = pdb.DefineStats(ClassSelected.getSelectedIndex())[2];
+                int magic = pdb.DefineStats(ClassSelected.getSelectedIndex())[3];
+                int dex = pdb.DefineStats(ClassSelected.getSelectedIndex())[4];
+                int speed = pdb.DefineStats(ClassSelected.getSelectedIndex())[5];
 
-            p.setType(ClassSelected.getSelectedIndex());
+                Player p = new Player(name, maxHealth, def, atk, magic, dex, speed);
 
-            model.addRow(new Object[]{p.getName(), pdb.getPlayerClass(p)});
+                p.setType(ClassSelected.getSelectedIndex());
 
+                //ads the character to the list
+                model.addRow(new Object[]{p.getName(), pdb.getPlayerClass(p)});
+
+                //ads the character to the database
+                pdb.getPlayers().add(p);
+
+                JOptionPane.showMessageDialog(CharTable, "Character created");
+            } else {
+
+                JOptionPane.showMessageDialog(CharTable, "You need to use a name");
+
+            }
         } else {
 
-            JOptionPane.showMessageDialog(CharTable, "Pon un nombre");
+            JOptionPane.showMessageDialog(CharTable, "This name already exists");
 
         }
 
-
     }//GEN-LAST:event_SaveCharBActionPerformed
 
+    /**
+     * this method checks if the name param is a name from a character in the
+     * character arraylist
+     *
+     * @param name
+     * @return if the name exists or not
+     */
+    private boolean checkCharName(String name) {
+
+        boolean check = false;
+
+        for (Player player : pdb.getPlayers()) {
+
+            if (player.getName().equals(name)) {
+
+                check = true;
+
+            }
+
+        }
+
+        return check;
+
+    }
+
+    /**
+     * this method is used to insert the character pressing enter when witing
+     * the name
+     *
+     * @param evt
+     */
     private void NameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NameFieldKeyPressed
 
+        //shuts the aplication
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             SaveCharB.doClick();
 
         }
 
-
     }//GEN-LAST:event_NameFieldKeyPressed
+
+    /**
+     * This method is used to delete a selected character from the aplication
+     * table
+     *
+     * @param evt
+     */
+    private void DeleteCharBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteCharBActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) CharTable.getModel();
+
+        //It only works if theres at least 1 character created and selected
+        if (CharTable.getSelectedRow() >= 0) {
+
+            //gets the name from the selected character
+            String name = CharTable.getModel().getValueAt(CharTable.getSelectedRow(), 0).toString();
+
+            //makes sure you want to delete the character
+            if (JOptionPane.showConfirmDialog(jPanel7, "Are you sure you want to delete this character: " + name) == 0) {
+
+                //deletes selected row
+                model.removeRow(CharTable.getSelectedRow());
+
+                //iterates the arraylist wich contains the characters and 
+                //deletes the one who matches names
+                for (int i = 0; i < pdb.getPlayers().size(); i++) {
+
+                    if (pdb.getPlayers().get(i).getName().equals(name)) {
+
+                        pdb.getPlayers().remove(i);
+
+                    }
+
+                }
+
+                JOptionPane.showMessageDialog(CharTable, "Character deleted  :C");
+
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(CharTable, "You need to select a character");
+
+        }
+
+    }//GEN-LAST:event_DeleteCharBActionPerformed
+
+    /**
+     * shuts the aplication
+     *
+     * @param evt
+     */
+    private void ExitGameBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitGameBActionPerformed
+
+        if (JOptionPane.showConfirmDialog(jPanel1, "Do you want to exit the aplication?") == 0) {
+
+            System.exit(0);
+
+        }
+
+    }//GEN-LAST:event_ExitGameBActionPerformed
+
+    /**
+     * Starts the game if the character inserted exists
+     *
+     * @param evt
+     */
+    private void StartGameBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartGameBActionPerformed
+
+        String name = JOptionPane.showInputDialog(rootPane, "Introduce characters name");
+
+        //If the name is registered you start the game
+        if (checkCharName(name)) {
+
+        } else {
+
+            JOptionPane.showMessageDialog(rootPane, "Thats not a character name, you can check the character name on character list");
+
+        }
+
+    }//GEN-LAST:event_StartGameBActionPerformed
 
     /**
      * @param args the command line arguments
