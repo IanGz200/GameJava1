@@ -6,11 +6,15 @@ package Graphix;
 
 import Player.PlayerDB;
 import Player.Player;
+import java.awt.event.KeyEvent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author IanGz
- * 
+ *
  */
 public class Graphix extends javax.swing.JFrame {
 
@@ -19,6 +23,23 @@ public class Graphix extends javax.swing.JFrame {
      */
     public Graphix() {
         initComponents();
+        prueba();
+    }
+
+    public void prueba() {
+
+        PlayerDB pdb = new PlayerDB();
+
+        int maxHealth = pdb.DefineStats(ClassSelected.getSelectedIndex())[0];
+        int def = pdb.DefineStats(ClassSelected.getSelectedIndex())[1];
+        int atk = pdb.DefineStats(ClassSelected.getSelectedIndex())[2];
+        int magic = pdb.DefineStats(ClassSelected.getSelectedIndex())[3];
+        int dex = pdb.DefineStats(ClassSelected.getSelectedIndex())[4];
+        int speed = pdb.DefineStats(ClassSelected.getSelectedIndex())[5];
+
+        Player p = new Player(NameField.getText(), maxHealth, def, atk, magic, dex, speed);
+
+        System.out.println(pdb.getPlayerClass(p) + "hola");
     }
 
     /**
@@ -63,6 +84,14 @@ public class Graphix extends javax.swing.JFrame {
 
         jLabel1.setText("Name:");
         jPanel4.add(jLabel1);
+
+        NameField.setColumns(10);
+        NameField.setToolTipText("Introduce a name");
+        NameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NameFieldKeyPressed(evt);
+            }
+        });
         jPanel4.add(NameField);
 
         jLabel2.setText("Class:");
@@ -91,7 +120,7 @@ public class Graphix extends javax.swing.JFrame {
 
         CharTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Name", "Class"
@@ -125,17 +154,45 @@ public class Graphix extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SaveCharBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveCharBActionPerformed
-        
+
+        DefaultTableModel model = (DefaultTableModel) CharTable.getModel();
+
         PlayerDB pdb = new PlayerDB();
-        Player p = null;
-        
-        pdb.DefineStats(p, ClassSelected.getSelectedIndex(), NameField.getText());
-        
-        CharTable.getModel().setValueAt(NameField.getText(), CharTable.getRowCount(), 0);
-        CharTable.getModel().setValueAt(pdb.getPlayerClass(p), CharTable.getRowCount(), 0);
-        
-        
+
+        if (!"".equals(NameField.getText())) {
+
+            int maxHealth = pdb.DefineStats(ClassSelected.getSelectedIndex())[0];
+            int def = pdb.DefineStats(ClassSelected.getSelectedIndex())[1];
+            int atk = pdb.DefineStats(ClassSelected.getSelectedIndex())[2];
+            int magic = pdb.DefineStats(ClassSelected.getSelectedIndex())[3];
+            int dex = pdb.DefineStats(ClassSelected.getSelectedIndex())[4];
+            int speed = pdb.DefineStats(ClassSelected.getSelectedIndex())[5];
+
+            Player p = new Player(NameField.getText(), maxHealth, def, atk, magic, dex, speed);
+
+            p.setType(ClassSelected.getSelectedIndex());
+
+            model.addRow(new Object[]{p.getName(), pdb.getPlayerClass(p)});
+
+        } else {
+
+            JOptionPane.showMessageDialog(CharTable, "Pon un nombre");
+
+        }
+
+
     }//GEN-LAST:event_SaveCharBActionPerformed
+
+    private void NameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NameFieldKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            SaveCharB.doClick();
+
+        }
+
+
+    }//GEN-LAST:event_NameFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -170,8 +227,7 @@ public class Graphix extends javax.swing.JFrame {
                 new Graphix().setVisible(true);
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

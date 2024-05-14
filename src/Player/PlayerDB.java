@@ -37,24 +37,23 @@ public class PlayerDB {
     /**
      * Method that defines a player stats
      *
-     * @param p
      * @param type to know the class
-     * @param name
      * @return A new player
      */
-    public Player DefineStats(Player p, int type, String name) {
+    public int[] DefineStats( int type) {
+        
+        int[] Soldier={15, 10, 13, 7, 10, 10};
+        int[] Archer={10, 8, 10, 7, 13, 12};
+        int[] Mage={8, 7, 8, 14, 10, 11};
+        int[] Healer={12, 9, 5, 15, 10, 11};
 
-        switch (type) {
-            case Player.SOLDIER ->
-                p = new Player(name, 15, 10, 13, 7, 10, 10);
-            case Player.ARCHER ->
-                p = new Player(name, 10, 8, 10, 7, 13, 12);
-            case Player.MAGE ->
-                p = new Player(name, 8, 7, 8, 14, 10, 11);
-            case Player.HEALER ->
-                p = new Player(name, 12, 9, 5, 15, 10, 11);
-        }
-        return p;
+        return switch (type) {
+            case Player.SOLDIER -> Soldier;
+            case Player.ARCHER -> Archer;
+            case Player.MAGE -> Mage;
+            case Player.HEALER -> Healer;
+            default -> null;
+        };
 
     }
 
@@ -127,5 +126,7 @@ public class PlayerDB {
         return playerClass;
     
     }
+    
+    
 
 }
