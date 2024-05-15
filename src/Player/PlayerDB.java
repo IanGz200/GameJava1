@@ -47,13 +47,13 @@ public class PlayerDB {
         int[] Mage={8, 7, 8, 14, 10, 11};
         int[] Healer={12, 9, 5, 15, 10, 11};
 
-        return switch (type) {
-            case Player.SOLDIER -> Soldier;
-            case Player.ARCHER -> Archer;
-            case Player.MAGE -> Mage;
-            case Player.HEALER -> Healer;
-            default -> null;
-        };
+        switch (type) {
+            case Player.SOLDIER : return Soldier;
+            case Player.ARCHER : return Archer;
+            case Player.MAGE : return Mage;
+            case Player.HEALER : return Healer;
+            default : return null;
+        }
 
     }
 
@@ -67,15 +67,15 @@ public class PlayerDB {
     public Player StatLvlUp(Player p, int stat) {
 
         switch (stat) {
-            case 0 ->
+            case 0 :
                 p.setDef(p.getDef() + 1);
-            case 1 ->
+            case 1 :
                 p.setAtk(p.getAtk() + 1);
-            case 2 ->
+            case 2 :
                 p.setMagic(p.getMagic() + 1);
-            case 3 ->
+            case 3 :
                 p.setDex(p.getDex() + 1);
-            case 4 ->
+            case 4 :
                 p.setSpeed(p.getSpeed() + 1);
         }
 
@@ -94,13 +94,13 @@ public class PlayerDB {
         p.setLevel(p.getLevel() + 1);
 
         switch (p.getType()) {
-            case Player.SOLDIER ->
+            case Player.SOLDIER :
                 p.setMaxHealth(p.getMaxHealth() + 8);
-            case Player.ARCHER ->
+            case Player.ARCHER :
                 p.setMaxHealth(p.getMaxHealth() + 7);
-            case Player.MAGE ->
+            case Player.MAGE :
                 p.setMaxHealth(p.getMaxHealth() + 5);
-            case Player.HEALER ->
+            case Player.HEALER :
                 p.setMaxHealth(p.getMaxHealth() + 6);
         }
 
@@ -110,20 +110,19 @@ public class PlayerDB {
     
     public String getPlayerClass(Player p){
     
-        String playerClass = null;
-    
         switch (p.getType()) {
-            case Player.SOLDIER ->
-                playerClass = "Soldier";
-            case Player.ARCHER ->
-                playerClass = "Archer";
-            case Player.MAGE ->
-                playerClass = "Mage";
-            case Player.HEALER ->
-                playerClass = "Healer";
+            case Player.SOLDIER :
+                return "Soldier";
+            case Player.ARCHER :
+                return "Archer";
+            case Player.MAGE :
+                return "Mage";
+            case Player.HEALER :
+                return "Healer";
+            default :
+                return null;
         }
         
-        return playerClass;
     
     }
     
