@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class PlayerDB {
 
     ArrayList<Player> players = new ArrayList<>();
+    
+    ArrayList<Player> selectedPlayers = new ArrayList<>();
 
     /**
      * getter from players
@@ -33,6 +35,24 @@ public class PlayerDB {
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
+
+    /**
+     * getter from selectedPlayers
+     * @return 
+     */
+    public ArrayList<Player> getSelectedPlayers() {
+        return selectedPlayers;
+    }
+
+    /**
+     * SelectedPlayer setter
+     * @param selectedPlayers 
+     */
+    public void setSelectedPlayers(ArrayList<Player> selectedPlayers) {
+        this.selectedPlayers = selectedPlayers;
+    }
+    
+    
 
     /**
      * Method that defines a player stats

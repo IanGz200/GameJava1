@@ -7,6 +7,8 @@ package Graphix;
 import Player.PlayerDB;
 import Player.Player;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Graphix extends javax.swing.JFrame {
 
-    PlayerDB pdb = new PlayerDB();
+    public PlayerDB pdb = new PlayerDB();
 
     /**
      * Creates new form Graphix
@@ -156,6 +158,22 @@ public class Graphix extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * pdb getter
+     * @return 
+     */
+    public PlayerDB getPdb() {
+        return pdb;
+    }
+
+    /**
+     * pdb setter
+     * @param pdb 
+     */
+    public void setPdb(PlayerDB pdb) {
+        this.pdb = pdb;
+    }
+    
+    /**
      * this method agregates a character to the character table and database. It
      * also defines the character stats
      *
@@ -202,6 +220,8 @@ public class Graphix extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(CharTable, "This name already exists");
 
         }
+
+        NameField.setText("");
 
     }//GEN-LAST:event_SaveCharBActionPerformed
 
@@ -319,7 +339,28 @@ public class Graphix extends javax.swing.JFrame {
         //If the name is registered you start the game
         if (checkCharName(name)) {
 
-        } else {
+            
+
+            for (int i = 0; i < pdb.getPlayers().size(); i++) {
+
+                if (pdb.getPlayers().get(i).getName().equals(name)) {
+
+                    Player usedPlayer = pdb.getPlayers().get(i);
+
+                    pdb.getSelectedPlayers().add(usedPlayer);
+                    
+
+                }
+
+            }
+
+            Game game = new Game(Graphix.this);
+
+            game.setVisible(true);
+
+            Graphix.this.setVisible(false);
+
+        } else if (name != null) {
 
             JOptionPane.showMessageDialog(rootPane, "Thats not a character name, you can check the character name on character list");
 
