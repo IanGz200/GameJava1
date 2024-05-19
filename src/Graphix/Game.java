@@ -149,6 +149,7 @@ public class Game extends javax.swing.JFrame {
         img.setLocation(550,20);
         img.setVisible(true);
         
+        
     }//GEN-LAST:event_StartButtonActionPerformed
 
     
