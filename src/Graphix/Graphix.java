@@ -7,8 +7,6 @@ package Graphix;
 import Player.PlayerDB;
 import Player.Player;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

@@ -81,9 +81,10 @@ public class Goblin extends MStats {
      * @param exp
      * @param Atk
      * @param Speed
+     * @param name
      */
-    public Goblin(int level, int maxhealth, int curhealth, int DefPoints, int exp, int Atk, int Speed) {
-        super(level, maxhealth, curhealth, DefPoints, exp, Atk, Speed);
+    public Goblin(int level, int maxhealth, int curhealth, int DefPoints, int exp, int Atk, int Speed,String name) {
+        super(level, maxhealth, curhealth, DefPoints, exp, Atk, Speed, name);
 
     }
 

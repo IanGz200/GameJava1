@@ -54,6 +54,7 @@ public class Player {
 
     /**
      * getter from name
+     *
      * @return player name
      */
     public String getName() {
@@ -62,8 +63,8 @@ public class Player {
 
     /**
      * name setter
-     * 
-     * @param name 
+     *
+     * @param name
      */
     public void setName(String name) {
         this.name = name;
@@ -249,6 +250,74 @@ public class Player {
         this.type = type;
     }
 
+    public int attackDone(int mDef) {
+
+        int dmg;
+        
+        if (getAtk() <= getMagic()) {
+
+            dmg = getMagic()- mDef;
+
+        } else {
+
+            dmg = getAtk() - mDef;
+
+        }
+
+        return dmg;
+    }
+
+    /**
+     * Method that upgrades the chose stat
+     *
+     * @param p player afected
+     * @param stat stat chose
+     * @return the upgraded and refreshed player
+     */
+    public Player statLvlUp(Player p, int stat) {
+
+        switch (stat) {
+            case 0:
+                p.setDef(p.getDef() + 1);
+            case 1:
+                p.setAtk(p.getAtk() + 1);
+            case 2:
+                p.setMagic(p.getMagic() + 1);
+            case 3:
+                p.setDex(p.getDex() + 1);
+            case 4:
+                p.setSpeed(p.getSpeed() + 1);
+        }
+
+        return p;
+
+    }
+
+    /**
+     * It upgrades the players HP when they level up
+     *
+     * @param p the selected player
+     * @return the player with the new hp values
+     */
+    public Player hPLvlUp(Player p) {
+
+        p.setLevel(p.getLevel() + 1);
+
+        switch (p.getType()) {
+            case Player.SOLDIER:
+                p.setMaxHealth(p.getMaxHealth() + 8);
+            case Player.ARCHER:
+                p.setMaxHealth(p.getMaxHealth() + 7);
+            case Player.MAGE:
+                p.setMaxHealth(p.getMaxHealth() + 5);
+            case Player.HEALER:
+                p.setMaxHealth(p.getMaxHealth() + 6);
+        }
+
+        return p;
+
+    }
+
     /**
      * Class constructor
      *
@@ -272,7 +341,5 @@ public class Player {
         this.Dex = Dex;
         this.Speed = Speed;
     }
-    
-    
 
 }

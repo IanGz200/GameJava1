@@ -33,6 +33,9 @@ public abstract class MStats {
     //Monster speed
     protected int Speed;
 
+    //Monster name
+    protected String name;
+
     /**
      *
      * @return
@@ -144,8 +147,22 @@ public abstract class MStats {
     public void setSpeed(int Speed) {
         this.Speed = Speed;
     }
-    
-    
+
+    /**
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Uses de monster attack to deal damage to players
@@ -154,39 +171,42 @@ public abstract class MStats {
      * @return damage dealt
      */
     public abstract int attack(int defense);
-    
+
     /**
      * Uses the damage dealt from the player to lower the current hp
-     * @param damage 
+     *
+     * @param damage
      */
     public abstract void lowerHp(int damage);
-    
+
     /**
      * Sometimes monsters can run away when they have low health
-     * 
+     *
      * @return if it runs away or not
      */
     public abstract boolean runAway();
-    
+
     /**
      * Constructor
      *
      * @param level
      * @param maxhealth
      * @param curhealth
-     * @param DefPoints
+     * @param defPoints
      * @param exp
-     * @param Atk
-     * @param Speed
+     * @param atk
+     * @param speed
+     * @param name
      */
-    public MStats(int level, int maxhealth, int curhealth, int DefPoints, int exp, int Atk, int Speed) {
+    public MStats(int level, int maxhealth, int curhealth, int defPoints, int exp, int atk, int speed, String name) {
         this.level = level;
         this.maxhealth = maxhealth;
         this.curhealth = curhealth;
-        this.DefPoints = DefPoints;
+        this.DefPoints = defPoints;
         this.exp = exp;
-        this.Atk = Atk;
-        this.Speed = Speed;
+        this.Atk = atk;
+        this.Speed = speed;
+        this.name = name;
     }
 
 }
