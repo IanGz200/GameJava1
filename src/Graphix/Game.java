@@ -25,6 +25,8 @@ public class Game extends javax.swing.JFrame {
 
     private Goblin goblin;
 
+    Graphix graph;
+
     /**
      * potionCount getter
      *
@@ -255,11 +257,17 @@ public class Game extends javax.swing.JFrame {
     private void healEvent() {
 
         if (player.getCurHealth() < player.getMaxHealth()) {
+            
+            JOptionPane.showMessageDialog(DirectionPanel, "You have been healed");
 
             player.setCurHealth(player.getMaxHealth());
 
+            updateStats();
+            
         }
 
+        enableMovButtons();
+        
     }
 
     /**
@@ -269,9 +277,11 @@ public class Game extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(DirectionPanel, "Oh no, Its a trap™");
 
-        player.setCurHealth(player.getCurHealth() - 5);
+        player.setCurHealth(player.getCurHealth() - (5*player.getLevel()));
 
+        updateStats();
         endGame();
+        enableMovButtons();
 
     }
 
@@ -282,7 +292,7 @@ public class Game extends javax.swing.JFrame {
 
         enableCombatButtons();
 
-        int maxHealth = level * 5;
+        int maxHealth = level * 10;
 
         int curHealth = maxHealth;
 
@@ -290,7 +300,7 @@ public class Game extends javax.swing.JFrame {
 
         int expGiven = 10 * level;
 
-        int atk = 10 + level;
+        int atk = 10 +level;
 
         int speed = 5 + level;
 
@@ -351,6 +361,8 @@ public class Game extends javax.swing.JFrame {
     public Game(Graphix graphix) {
         initComponents();
 
+        graph = graphix;
+
         setPlayer(graphix.pdb.getSelectedPlayers().get(0));
 
         String charLevel = Integer.toString(player.getLevel());
@@ -372,11 +384,32 @@ public class Game extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Ends the game
+     */
     private void endGame() {
 
         if (player.getCurHealth() <= 0) {
 
+            JOptionPane.showMessageDialog(DirectionPanel, "Thanks for playing, your score was: " + getScore());
+
+            graph.setVisible(true);
+
+            setVisible(false);
+
         }
+
+    }
+
+    /**
+     * Ends the combat
+     */
+    private void endCombat() {
+
+        enableMovButtons();
+        disableCombatButtons();
+        MonNameLabel.setText("");
+        MonLevelLabel.setText("");
 
     }
 
@@ -621,26 +654,33 @@ public class Game extends javax.swing.JFrame {
      */
     private void PotionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PotionButtonActionPerformed
 
-        if (player.getCurHealth()==player.getMaxHealth()) {
-            
+        if (player.getCurHealth() == player.getMaxHealth()) {
+
             JOptionPane.showMessageDialog(DirectionPanel, "You are already full health");
 
         } else {
             if (getPotionCount() == 0) {
 
                 JOptionPane.showMessageDialog(DirectionPanel, "No potions available");
+                updatePotionCount();
 
-            } else if (player.getMaxHealth() - 5 < player.getCurHealth()) {
+            } else if (player.getMaxHealth() - 5 <= player.getCurHealth()) {
 
-                player.setCurHealth(player.getMaxHealth() - player.getCurHealth());
+                player.setCurHealth(player.getCurHealth() + (player.getMaxHealth() - player.getCurHealth()));
+
+                updateStats();
 
                 setPotionCount(getPotionCount() - 1);
+                updatePotionCount();
 
             } else {
 
                 player.setCurHealth(player.getCurHealth() + 5);
 
+                updateStats();
+
                 setPotionCount(getPotionCount() - 1);
+                updatePotionCount();
 
             }
 
@@ -649,7 +689,7 @@ public class Game extends javax.swing.JFrame {
                 PotionButton.setEnabled(false);
 
             }
-            setPotionCount(getPotionCount() - 1);
+            updatePotionCount();
         }
     }//GEN-LAST:event_PotionButtonActionPerformed
 
@@ -712,67 +752,117 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_RightMovButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void LevelUpAttackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelUpAttackButtonActionPerformed
         player.statLvlUp(player, 1);
+        updateStats();
+        disableLvlUpButtons();
     }//GEN-LAST:event_LevelUpAttackButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void LevelUpDexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelUpDexButtonActionPerformed
         player.statLvlUp(player, 3);
+        updateStats();
+        disableLvlUpButtons();
     }//GEN-LAST:event_LevelUpDexButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void LevelUpDefenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelUpDefenseButtonActionPerformed
         player.statLvlUp(player, 0);
+        updateStats();
+        disableLvlUpButtons();
     }//GEN-LAST:event_LevelUpDefenseButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void LevelUpMagicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelUpMagicButtonActionPerformed
         player.statLvlUp(player, 2);
+        updateStats();
+        disableLvlUpButtons();
     }//GEN-LAST:event_LevelUpMagicButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void LevelUpSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LevelUpSpeedButtonActionPerformed
         player.statLvlUp(player, 4);
+        updateStats();
+        disableLvlUpButtons();
     }//GEN-LAST:event_LevelUpSpeedButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void AttackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttackButtonActionPerformed
-        // TODO add your handling code here:
+
+        goblin.setCurhealth(goblin.getCurhealth() - player.attackDone(goblin.getDefPoints()));
+
+        if (goblin.getCurhealth() > 0) {
+
+            player.setCurHealth(player.getCurHealth() - goblin.attack(player.getDef()));
+            updateStats();
+            endGame();
+
+        } else {
+
+            player.setExp(player.getExp() + (20*goblin.getLevel()));
+            setScore(getScore() + (5*goblin.getLevel()));
+            updateStats();
+
+            if (player.getExp() >= 100) {
+
+                player.hPLvlUp(player);
+                player.setExp(player.getExp() - 100);
+                setScore(getScore() + 10);
+                updateStats();
+                enableLvlUpButtons();
+
+            }
+            endCombat();
+
+        }
     }//GEN-LAST:event_AttackButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void DefendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DefendButtonActionPerformed
-        // TODO add your handling code here:
+
+        
+
     }//GEN-LAST:event_DefendButtonActionPerformed
 
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void RunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunButtonActionPerformed
-        // TODO add your handling code here:
+
+        if (generateRandomNumber() <= 4) {
+
+            endCombat();
+
+        } else {
+
+            player.setCurHealth(player.getCurHealth() - goblin.attack(player.getDef()));
+            endGame();
+            updateStats();
+
+        }
+
     }//GEN-LAST:event_RunButtonActionPerformed
 
 

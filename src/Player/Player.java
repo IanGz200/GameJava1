@@ -279,14 +279,19 @@ public class Player {
         switch (stat) {
             case 0:
                 p.setDef(p.getDef() + 1);
+                break;
             case 1:
                 p.setAtk(p.getAtk() + 1);
+                break;
             case 2:
                 p.setMagic(p.getMagic() + 1);
+                break;
             case 3:
                 p.setDex(p.getDex() + 1);
+                break;
             case 4:
                 p.setSpeed(p.getSpeed() + 1);
+                break;
         }
 
         return p;
@@ -306,13 +311,19 @@ public class Player {
         switch (p.getType()) {
             case Player.SOLDIER:
                 p.setMaxHealth(p.getMaxHealth() + 8);
+                break;
             case Player.ARCHER:
                 p.setMaxHealth(p.getMaxHealth() + 7);
+                break;
             case Player.MAGE:
                 p.setMaxHealth(p.getMaxHealth() + 5);
+                break;
             case Player.HEALER:
                 p.setMaxHealth(p.getMaxHealth() + 6);
+                break;
         }
+        
+        p.setCurHealth(p.getMaxHealth());
 
         return p;
 

@@ -22,7 +22,7 @@ public class Goblin extends MStats {
     public int attack(int defense) {
         int damage;
 
-        damage = getAtk() * getLevel() - defense;
+        damage = getAtk() - defense;
 
         return damage;
 
